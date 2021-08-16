@@ -25,7 +25,7 @@ public class Usuario {
     @Column(name = "fecha_login")
     private Date fechaLogin;
 
-    @Column(name = "tipo_usuario")
+    @Column(name = "tipo_usuario_id")
     private Integer tipoUsuario;
 
     @OneToOne
@@ -98,6 +98,19 @@ public class Usuario {
 
     public void setPasajero(Pasajero pasajero) {
         this.pasajero = pasajero;
+    }
+
+    public Integer obtenerEntityId() {
+        // TODO, segun el tipo de usuario, devolver el pasajeroId o staffId o nada!
+        switch (this.getTipoUsuario()) {
+            case PASAJERO:
+                return this.getPasajero().getPasajeroId();
+            case STAFF:
+                return this.getStaff().getStaffId();
+            default:
+                break;
+        }
+        return null;
     }
 
     public enum TipoUsuarioEnum {

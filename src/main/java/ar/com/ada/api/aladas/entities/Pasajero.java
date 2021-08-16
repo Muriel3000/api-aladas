@@ -17,7 +17,7 @@ public class Pasajero extends Persona{
     @OneToMany(mappedBy = "pasajero", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reserva> reservas = new ArrayList<>();
 
-    @OneToOne(mappedBy = "staff", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "pasajero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     // CascadeType.ALL -> fk, cuando se cree un staff/pasajero se va a crear 
     //tambien un usuario(relacion bidireccional)
     private Usuario usuario;
