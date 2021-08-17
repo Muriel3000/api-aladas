@@ -30,8 +30,11 @@ public class VueloController {
 
     @PostMapping("/api/vuelos")
     public ResponseEntity<GenericResponse> crearVuelo(@RequestBody Vuelo vuelo){
+        
         GenericResponse respuesta = new GenericResponse();
+       
         ValidacionVueloDataEnum resultadoValidacion = service.validar(vuelo);
+       
         if(resultadoValidacion == ValidacionVueloDataEnum.OK){
             service.crear(vuelo);
             respuesta.isOk = true;
@@ -60,7 +63,7 @@ public class VueloController {
      * respuesta.message = "Vuelo creado correctamente";
      * 
      * return ResponseEntity.ok(respuesta); }
-     */
+    */
 
     @PutMapping("/api/vuelos/{id}/estados")
     public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id, @RequestBody EstadoVueloRequest estadoVuelo){

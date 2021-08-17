@@ -49,7 +49,7 @@ public class UsuarioService {
             p.setFechaNacimiento(fechaNacimiento);
             p.setPaisId(PaisEnum.parse(pais));
             p.setUsuario(u);
-            //repo.save(u); -> n funcionaria, porque la relacion bidireccional esta es staff 
+            //repo.save(u); -> no funcionaria, porque la relacion bidireccional esta en staff 
             pasajeroService.crearPasajero(p);
         }
         else if (tipoUsuario == TipoUsuarioEnum.STAFF){
