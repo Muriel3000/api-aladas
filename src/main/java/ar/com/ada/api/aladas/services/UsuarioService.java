@@ -19,6 +19,7 @@ import ar.com.ada.api.aladas.entities.Pais.TipoDocuEnum;
 import ar.com.ada.api.aladas.entities.Usuario.TipoUsuarioEnum;
 import ar.com.ada.api.aladas.repos.UsuarioRepository;
 import ar.com.ada.api.aladas.security.Crypto;
+import ar.com.ada.api.aladas.sistema.comm.EmailService;
 
 @Service
 public class UsuarioService {
@@ -31,6 +32,9 @@ public class UsuarioService {
 
     @Autowired
     private StaffService staffService;
+
+    @Autowired
+    private EmailService emailService;
     
     public Usuario crearUsuario(TipoUsuarioEnum tipoUsuario, String nombre, int pais, Date fechaNacimiento,
     TipoDocuEnum tipoDoc, String doc, String email, String password){
@@ -63,6 +67,9 @@ public class UsuarioService {
             //repo.save(u); -> no lo guarda en la db
             staffService.crearStaff(s);
         }
+
+        emailService.SendEmail(u.getEmail(), "Registracion exitosa", "Bienvenido, ud ha sido registrado");
+
         return u;
     }
         

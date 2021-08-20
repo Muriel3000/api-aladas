@@ -1,5 +1,7 @@
 package ar.com.ada.api.aladas.controllers;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -10,6 +12,7 @@ import ar.com.ada.api.aladas.entities.Reserva;
 import ar.com.ada.api.aladas.entities.Usuario;
 import ar.com.ada.api.aladas.models.request.InfoReservaRequest;
 import ar.com.ada.api.aladas.models.response.GenericResponse;
+import ar.com.ada.api.aladas.models.response.ReservaAFront;
 import ar.com.ada.api.aladas.services.ReservaService;
 import ar.com.ada.api.aladas.services.UsuarioService;
 
@@ -22,7 +25,7 @@ public class ReservaController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/api/aladas/reservas")
+    @PostMapping("/api/reservas")
     public ResponseEntity<GenericResponse> generarReserva(@RequestBody InfoReservaRequest infoReserva){
        
         // Obtengo a quien esta autenticado del otro lado
@@ -43,5 +46,16 @@ public class ReservaController {
         response.id = numeroReserva;
        
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/api/vuelos/{vueloId}/reservas")
+    public ResponseEntity<List<ReservaAFront>> getReservasDeVuelo(@PathVariable Integer vueloId){
+        List<Reserva> reservas = service.traerReservasDeVuelo(vueloId);
+        List<ReservaAFront> reservasMostrar = new ArrayList();
+        for(Reserva r : reservas){
+            ReservaAFront reservaModel = ReservaAFront.convertirDesde(r);
+            reservasMostrar.add(reservaModel);
+        }
+        return ResponseEntity.ok(reservasMostrar);
     }
 }

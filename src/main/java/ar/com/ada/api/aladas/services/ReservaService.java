@@ -2,6 +2,7 @@ package ar.com.ada.api.aladas.services;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,14 @@ public class ReservaService {
         repo.save(reserva);
 
         return reserva.getReservaId();
+    }
+
+    public List<Reserva> traerReservasDeVuelo(Integer vueloId){
+        Vuelo vuelo = vueloService.buscarPorId(vueloId);
+        return vuelo.getReservas();
+    }
+
+    public Reserva buscarPorId(Integer id){
+        return repo.findByReservaId(id);
     }
 }

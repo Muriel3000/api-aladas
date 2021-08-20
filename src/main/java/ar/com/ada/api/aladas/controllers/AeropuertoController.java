@@ -40,4 +40,10 @@ public class AeropuertoController {
             return ResponseEntity.badRequest().body(respuesta);
         }
     }
+
+    /* validacion
+        if(usuario = staff) {
+
+        } else 403 forbidden
+    */
 }
