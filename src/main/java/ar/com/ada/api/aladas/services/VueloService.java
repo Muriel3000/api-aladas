@@ -51,7 +51,9 @@ public class VueloService {
 
         if(!validarAeropuertoOrigenDifDestino(vuelo))
             return ValidacionVueloDataEnum.ERROR_AEROPUERTOS_IGUALES;
-            
+        
+        if(!validarFecha(vuelo))
+            return ValidacionVueloDataEnum.ERROR_FECHA;
         return ValidacionVueloDataEnum.OK;
     }
 
@@ -71,6 +73,13 @@ public class VueloService {
         //  if(vuelo.getAeropuertoDestino() != vuelo.getAeropuertoOrigen()) return true;
         //  else return false;
         return vuelo.getAeropuertoOrigen() != vuelo.getAeropuertoDestino();
+    }
+
+    public boolean validarFecha(Vuelo vuelo){
+        Date fechaHoy = new Date();
+        if(vuelo.getFecha().after(fechaHoy))
+            return true;
+        return false;
     }
 
     public enum ValidacionVueloDataEnum {
